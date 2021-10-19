@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var templatestr = `<h1>我买了一个{{thing}},我好{{mood}}</h1>`;
+      var data = {
+        thing: '苹果',
+        mood: '开心'
+      };
+      // console.log('我爱唱歌,我也爱跳舞'.replace(/我/g, '你'));
+      // console.log(
+      //   '我爱唱歌,我也爱跳舞'.replace(/我/g, function() {
+      //     return '她';
+      //   })
+      // );
+      // console.log(
+      //   '我爱唱歌,我也爱跳舞'.replace(/我/g, function(a, b, c) {
+      //     console.log(a, b, c);
+      //     return '她';
+      //   })
+      // );
+      // 捕获
+      // console.log(
+      //   templatestr.replace(/\{\{(\w+)\}\}/g, function(
+      //     findstr,
+      //     capturedstr,
+      //     c,
+      //     d
+      //   ) {
+      //     console.log(findstr, capturedstr, c, d);
+      //     return data[capturedstr];
+      //   })
+      // );
+
+      // 最简单的模板引擎的实现机理,利用的是正则表达式中的replace()方法,replace()的第二个参数可以是一个函数,这个函数提供捕获的东西的参数,就是capturedstr,结合data对象,即可进行智能的替换
+      function render(templatestr, data) {
+        return templatestr.replace(/\{\{(\w+)\}\}/g, function(
+          findstr,
+          capturedstr,
+          c,
+          d
+        ) {
+          console.log(findstr, capturedstr, c, d);
+          return data[capturedstr];
+        });
+      }
+      var result = render(templatestr, data);
+      console.log(result);
+    </script>
+  </body>
+</html>
